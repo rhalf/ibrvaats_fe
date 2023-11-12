@@ -3,8 +3,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import { user } from "./modules/user";
 import { admin } from "./modules/admin";
 import { session } from "./modules/session";
-import { owner } from "./modules/owner";
-import { search } from "./modules/search";
+
+import { policeStations } from "./modules/police-stations";
+import { policeStationsSearch } from "./modules/police-stations-search";
+
+import { medicalStations } from "./modules/medical-stations";
+import { medicalStationsSearch } from "./modules/medical-stations-search";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,8 +28,10 @@ const router = createRouter({
     { ...session },
     { ...user },
     { ...admin },
-    { ...owner },
-    { ...search },
+    { ...policeStations },
+    { ...policeStationsSearch },
+    { ...medicalStations },
+    { ...medicalStationsSearch },
   ],
 });
 

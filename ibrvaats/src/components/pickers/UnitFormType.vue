@@ -15,7 +15,7 @@ const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({ modelValue: String });
 const propsRef = toRefs(props);
 
-const items = ["Microchip", "Tag", "Ring", "Card", "Wristband", "Neclace"];
+const items = ["PORTABLE", "BUILT-IN"];
 
 const type = computed(useModel(propsRef, emit, "modelValue"));
 

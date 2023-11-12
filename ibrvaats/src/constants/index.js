@@ -1,10 +1,9 @@
-import _ from "lodash";
+import { cloneDeep } from "lodash";
 
-export const UserGroups = {
+export const USER_ROLES = {
   ADMIN: "ADMIN",
-  OWNER: "OWNER",
-  VETERINARIAN: "VETERINARIAN",
-  GOVERNMENT: "GOVERNMENT",
+  POLICE: "POLICE",
+  MEDIC: "MEDIC",
 };
 
 export const Statuses = {
@@ -18,34 +17,7 @@ export const Privacies = {
   PRIVATE: "PRIVATE",
 };
 
-export const PetStatuses = {
-  NORMAL: "NORMAL",
-  MISSING: "MISSING",
-  FOUND: "FOUND",
-};
-
-// export const LEVEL = {
-//   SUPER: "SUPER",
-//   ADMIN: "ADMIN",
-//   ENCODER: "ENCODER",
-//   DEMO: "DEMO",
-// };
-
-// export const VACCINE = {
-//   serial: null,
-//   name: null,
-//   description: null,
-//   location: null,
-
-//   applicationDate: null,
-//   injectedDate: null,
-//   effectivityDate: null,
-
-//   verified: null,
-//   verifiedBy: null,
-// };
-
-export const Address = {
+export const ADDRESS = {
   country: null,
   state: null,
   region: null,
@@ -56,7 +28,7 @@ export const Address = {
   exact: null,
 };
 
-export const Name = {
+export const NAME = {
   title: null,
   first: null,
   middle: null,
@@ -65,8 +37,8 @@ export const Name = {
 };
 
 export const Profile = {
-  name: _.cloneDeep(Name),
-  address: _.cloneDeep(Address),
+  name: cloneDeep(NAME),
+  address: cloneDeep(ADDRESS),
   gender: null,
   birthDate: null,
   photoUrl: null,
@@ -74,17 +46,22 @@ export const Profile = {
   headline: null,
 };
 
-//Default User
-export const User = {
+//Default USER
+export const USER = Object.freeze({
   id: null,
   email: null,
   emailVerified: null,
   mobileNumber: null,
+  approved: false,
 
-  roles: [UserGroups.OWNER],
+  roles: [],
+
+  policeStation: null,
+  medicalStation: null,
+
   status: Statuses.ENABLED,
-  profile: _.cloneDeep(Profile),
-};
+  profile: cloneDeep(Profile),
+});
 
 //Default Beneficiary
 export const PET = {
@@ -105,8 +82,24 @@ export const VACCINATION = {
   veterinarian: null, //VET
 };
 
-//Default Government
-// export const GOVERNMENT = {
-//   name: null,
-//   address: null,
-// };
+//Signup
+export const SIGNUP = Object.freeze({
+  email: null,
+  password1: null,
+  password2: null,
+  policeStation: null,
+  medicalStation: null,
+  role: null,
+});
+
+//POLICE_STATION
+export const POLICE_STATION = Object.freeze({
+  name: null,
+  address: cloneDeep(ADDRESS),
+});
+
+//MEDICAL_STATION
+export const MEDICAL_STATION = Object.freeze({
+  name: null,
+  address: cloneDeep(ADDRESS),
+});

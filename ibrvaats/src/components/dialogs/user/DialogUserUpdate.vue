@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="1024" expand>
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Update User </Label>
+        <Label header> Update User </Label>
       </v-card-title>
       <v-card-text>
         <FormUser v-model="user" />
@@ -37,7 +37,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { update } from "@/api/user";
+import { update } from "@/api/users";
 
 import { useModel, syncProp } from "@/utils/vue";
 

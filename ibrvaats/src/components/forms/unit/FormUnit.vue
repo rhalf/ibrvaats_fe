@@ -1,22 +1,22 @@
 <template>
   <v-row dense>
     <v-col cols="12" md="">
-      <Label class="text-primary"> Uid </Label>
+      <Label class="text-primary"> UID </Label>
       <TextField
-        class="mt-3"
+        class="mt-2"
         v-model="unit.uid"
-        placeholder="Uid"
+        placeholder="UID"
         counter
         :disabled="disabled || !isAllowed('uid')"
       />
     </v-col>
   </v-row>
 
-  <v-row dense class="mt-3">
+  <v-row dense class="mt-2">
     <v-col cols="12" md="">
       <Label class="text-primary"> Unit Type </Label>
       <UnitType
-        class="mt-3"
+        class="mt-2"
         v-model="unit.unitType"
         :disabled="disabled || !isAllowed('unitType')"
       />
@@ -24,18 +24,39 @@
     <v-col cols="12" md="">
       <Label class="text-primary"> Form Type </Label>
       <UnitFormType
-        class="mt-3"
+        class="mt-2"
         v-model="unit.formType"
         :disabled="disabled || !isAllowed('formType')"
       />
     </v-col>
   </v-row>
 
-  <v-row dense class="mt-3">
+  <v-row dense>
+    <v-col cols="12" md="6">
+      <Label class="text-primary"> Sim Network </Label>
+      <TextField
+        class="mt-2"
+        v-model="unit.simNetwork"
+        placeholder="Sim Network"
+        :disabled="disabled || !isAllowed('simNetwork')"
+      />
+    </v-col>
+    <v-col cols="12" md="6">
+      <Label class="text-primary"> Sim Number </Label>
+      <TextField
+        class="mt-2"
+        v-model="unit.simNumber"
+        placeholder="Sim Number"
+        :disabled="disabled || !isAllowed('simNumber')"
+      />
+    </v-col>
+  </v-row>
+
+  <v-row dense class="mt-2">
     <v-col cols="12" md="6">
       <Label class="text-primary"> Status </Label>
       <StatusType
-        class="mt-3"
+        class="mt-2"
         v-model="unit.status"
         placeholder="Status"
         :disabled="disabled || !isAllowed('status')"
@@ -44,7 +65,7 @@
     <v-col cols="12" md="6">
       <Label class="text-primary"> Date of Application </Label>
       <Date
-        class="mt-3"
+        class="mt-2"
         v-model="unit.applicationDate"
         placeholder="Date of Application"
         :disabled="disabled || !isAllowed('applicationDate')"
@@ -52,44 +73,23 @@
     </v-col>
   </v-row>
 
-  <v-row dense class="mt-3">
+  <v-row dense class="mt-2">
     <v-col cols="12" md="6">
-      <Label class="text-primary"> Pet </Label>
+      <Label class="text-primary"> Vehicle </Label>
       <TextField
-        class="mt-3"
-        v-model="unit.pet"
-        placeholder="Pet"
-        :disabled="disabled || !isAllowed('pet')"
+        class="mt-2"
+        v-model="unit.vehicle"
+        placeholder="Vehicle"
+        :disabled="disabled || !isAllowed('vehicle')"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <Label class="text-primary"> Owner </Label>
+      <Label class="text-primary"> Brand </Label>
       <TextField
-        class="mt-3"
-        v-model="unit.owner"
-        placeholder="Owner"
-        :disabled="disabled || !isAllowed('owner')"
-      />
-    </v-col>
-  </v-row>
-
-  <v-row dense class="mt-3">
-    <v-col cols="12" md="6">
-      <Label class="text-primary"> Veterinarian </Label>
-      <TextField
-        class="mt-3"
-        v-model="unit.veterinarian"
-        placeholder="Veterinarian"
-        :disabled="disabled || !isAllowed('veterinarian')"
-      />
-    </v-col>
-    <v-col cols="12" md="6">
-      <Label class="text-primary"> Government </Label>
-      <TextField
-        class="mt-3"
-        v-model="unit.government"
-        placeholder="Government"
-        :disabled="disabled || !isAllowed('government')"
+        class="mt-2"
+        v-model="unit.brand"
+        placeholder="Brand"
+        :disabled="disabled || !isAllowed('brand')"
       />
     </v-col>
   </v-row>

@@ -129,7 +129,7 @@ import FormAddress from "@/components/forms/address/FormAddress.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { uploadOwnerProfile } from "@/api/photo";
+import { uploadPoliceProfile } from "@/api/photo";
 
 import { useModel } from "@/utils/vue";
 import { computed, toRefs, ref } from "vue";
@@ -152,7 +152,7 @@ const updateHandler = async (files) => {
   try {
     isLoading.value = true;
 
-    const photoUrl = await uploadOwnerProfile(user.value.id, files);
+    const photoUrl = await uploadPoliceProfile(user.value.id, files);
     user.value.profile.photoUrl = photoUrl;
   } catch ({ message }) {
     show("error", message);

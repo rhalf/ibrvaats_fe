@@ -4,13 +4,13 @@ export default {
     return "Required field";
   },
 
-  minimum: (value, length = 8, name = "field") => {
-    if (value?.length <= length) return true;
+  minimum: (value, length = 6, name = "field") => {
+    if (value?.length >= length) return true;
     return `The ${name} must be atleast ${length} characters.`;
   },
 
-  maximum: (value, length = 8, name = "field") => {
-    if (value?.length >= length) return true;
+  maximum: (value, length = 6, name = "field") => {
+    if (value?.length <= length) return true;
     return `The ${name} must not exceed ${length} characters.`;
   },
 
@@ -20,6 +20,7 @@ export default {
   },
 
   email: (value) => {
+    if (!value) return true;
     if (/.+@.+\..+/.test(value)) return true;
     return "Email must be valid.";
   },

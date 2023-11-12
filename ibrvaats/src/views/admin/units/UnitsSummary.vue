@@ -67,7 +67,7 @@ import DialogUnitRemove from "@/components/dialogs/unit/DialogUnitRemove.vue";
 // import { useSnackbarStore } from "@/store/snackbar";
 // const { show } = useSnackbarStore();
 
-import { search, next, prev } from "@/api/unit";
+import { search, next, prev } from "@/api/units";
 
 import { ref, onMounted } from "vue";
 

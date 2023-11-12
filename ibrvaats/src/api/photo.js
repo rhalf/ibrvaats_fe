@@ -5,7 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const fileSize = 512;
 const totalSize = fileSize * 1000;
 
-export const uploadOwnerProfile = async (uid, files) => {
+export const uploadPoliceProfile = async (uid, files) => {
   const profilePath = "/photos/owners";
   const file = files[0];
 

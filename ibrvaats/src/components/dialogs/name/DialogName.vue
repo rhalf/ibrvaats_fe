@@ -2,7 +2,7 @@
   <Dialog :width="1024" expand>
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black">Name</Label>
+        <Label header>Name</Label>
       </v-card-title>
       <v-card-text>
         <FormName v-model="props.name" />

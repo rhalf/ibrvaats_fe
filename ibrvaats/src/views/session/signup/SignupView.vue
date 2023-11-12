@@ -17,96 +17,42 @@
       </v-col>
     </v-row>
 
-    <v-form
-      v-model="form"
-      @submit.prevent="onSubmitHandler"
-      validate-on="input"
-    >
-      <v-row dense>
-        <v-col align="start">
-          <v-row dense class="mt-3">
-            <v-col align="start">
-              <TextField
-                name="email"
-                v-model="email"
-                placeholder="Email"
-                prependInnerIcon="mdi-account"
-                type="email"
-                :rules="[validation.required, validation.email]"
-              />
-            </v-col>
-          </v-row>
-          <v-row dense class="mt-3">
-            <v-col>
-              <TextField
-                name="password1"
-                v-model="password1"
-                placeholder="Password"
-                prependInnerIcon="mdi-lock"
-                type="password"
-                :rules="[validation.required]"
-              />
-            </v-col>
-          </v-row>
-          <v-row dense class="mt-3">
-            <v-col>
-              <TextField
-                name="password2"
-                v-model="password2"
-                placeholder="Retype password"
-                prependInnerIcon="mdi-lock"
-                type="password"
-                :rules="[
-                  validation.required,
-                  validation.match(password1, password2, 'password'),
-                ]"
-              />
-            </v-col>
-          </v-row>
+    <FormSignup v-model:form="form" v-model:data="data" />
 
-          <v-row class="mt-5">
-            <v-col>
-              <Button block :disabled="!isValid" type="submit" size="large"
-                >Sign Up</Button
-              >
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <Button block variant="outlined" size="large" @click="searchHandler">
-            Search Pet
-          </Button>
-        </v-col>
-      </v-row>
-    </v-form>
+    <v-row class="mt-5">
+      <v-col>
+        <Button
+          block
+          :disabled="!form"
+          type="submit"
+          size="large"
+          @click="onSubmitHandler"
+        >
+          Sign Up
+        </Button>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script setup>
 import Label from "@/components/common/Label.vue";
 import Button from "@/components/common/Button.vue";
-import TextField from "@/components/common/TextField.vue";
 import Anchor from "@/components/common/Anchor.vue";
 
-import { ref, computed } from "vue";
-import validation from "@/utils/validation";
+import FormSignup from "@/components/forms/session/FormSignup.vue";
+
+import { ref } from "vue";
+import { SIGNUP, USER_ROLES, USER } from "@/constants";
+const { ADMIN, POLICE, MEDIC } = USER_ROLES;
+
+import { cloneDeep } from "lodash";
 
 import { signUp, emailVerification } from "@/api/session";
+import { create } from "@/api/users";
 
-const email = ref();
-const password1 = ref();
-const password2 = ref();
+const data = ref(cloneDeep(SIGNUP));
 const form = ref();
-
-const isValid = computed(() => {
-  if (password1.value == null) return false;
-  if (password1.value.length < 6) return false;
-  if (password1.value === password2.value) return true;
-  return false;
-});
 
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
@@ -131,23 +77,35 @@ const { start, stop } = useProgressLineStore();
 //onSubmitHandler
 const onSubmitHandler = async (event) => {
   if (!form.value) return;
+
   try {
     start();
     // Signed up
-    const result = await signUp(email.value, password1.value);
+    const { email, password1, role, policeStation, medicalStation } =
+      data.value;
+    const result = await signUp(email, password1);
     // Email verification
     await emailVerification();
     show("success", "Successful! Email verification has been sent!");
+
     const user = result.user;
-    console.log(user);
+    // console.log(user);
+
+    const newUser = cloneDeep(USER);
+    newUser.id = user.uid;
+    newUser.email = user.email;
+    newUser.roles = [role];
+
+    user.value = await create(newUser);
+
+    data.value = cloneDeep(SIGNUP);
+    router.push({ name: "SessionLogin" });
+
+    show("success", "created a user");
   } catch ({ message }) {
     show("error", message);
   } finally {
     stop();
   }
-};
-
-const searchHandler = () => {
-  router.push({ name: "SearchDashboard" });
 };
 </script>

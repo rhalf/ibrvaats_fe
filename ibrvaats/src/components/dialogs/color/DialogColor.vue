@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="420" expand>
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black">Color</Label>
+        <Label header>Color</Label>
       </v-card-title>
       <v-card-text>
         <Color v-model="color" />

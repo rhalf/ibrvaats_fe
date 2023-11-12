@@ -10,9 +10,9 @@
       <v-col align="start">
         <Label>
           Don't have an account?
-          <Anchor @click="signupHandler">Sign up</Anchor>
+          <Anchor @click="signupHandler"> Sign up </Anchor>
           or
-          <Anchor @click="forgotHandler">Forgot?</Anchor>
+          <Anchor @click="forgotHandler"> Forgot? </Anchor>
         </Label>
       </v-col>
     </v-row>
@@ -54,14 +54,6 @@
               <Button block type="submit" size="large">Login</Button>
             </v-col>
           </v-row>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <Button block variant="outlined" size="large" @click="searchHandler">
-            Search Pet
-          </Button>
         </v-col>
       </v-row>
     </v-form>
@@ -108,21 +100,26 @@ const onSubmitHandler = async (event) => {
     start();
     const result = await signIn(email.value, password.value);
 
-    if (!result.user.emailVerified) {
+    const { emailVerified, approved } = result.user;
+
+    if (!emailVerified) {
       await signOut();
       show("error", "You must verify your email first!");
-    } else {
-      await router.push({ name: "UserDashboard" });
+      return;
     }
+
+    // if (!approved) {
+    //   await signOut();
+    //   show("error", "Your account must be approved by ADMIN first!");
+    //   return;
+    // }
+
+    await router.push({ name: "UserDashboard" });
   } catch ({ code }) {
     const description = await getDescription(code);
     show("error", description);
   } finally {
     stop();
   }
-};
-
-const searchHandler = () => {
-  router.push({ name: "SearchDashboard" });
 };
 </script>

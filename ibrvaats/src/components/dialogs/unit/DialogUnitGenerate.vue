@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="480">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Generate </Label>
+        <Label header> Generate </Label>
       </v-card-title>
       <v-card-text>
         <Label text class="text-primary"> UID (Starts At) </Label>

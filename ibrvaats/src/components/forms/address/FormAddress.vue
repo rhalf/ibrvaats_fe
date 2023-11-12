@@ -172,7 +172,7 @@ import TextField from "@/components/common/TextField.vue";
 import countries from "@/data/countries.json";
 import philippines from "@/data/philippines.json";
 
-import { Address } from "@/constants";
+import { ADDRESS } from "@/constants";
 
 import { useModel } from "@/utils/vue";
 
@@ -185,7 +185,7 @@ const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: cloneDeep(Address),
+    default: cloneDeep(ADDRESS),
   },
   disabled: Boolean,
 });
@@ -222,7 +222,7 @@ const selectedCity = computed(() => {
 });
 
 const onCountry = () => {
-  const { state, region, province, city, barangay } = Address;
+  const { state, region, province, city, barangay } = ADDRESS;
   address.value.state = state;
   address.value.region = region;
   address.value.province = province;
@@ -230,18 +230,18 @@ const onCountry = () => {
   address.value.barangay = barangay;
 };
 const onRegion = () => {
-  const { province, city, barangay } = Address;
+  const { province, city, barangay } = ADDRESS;
   address.value.province = province;
   address.value.city = city;
   address.value.barangay = barangay;
 };
 const onProvince = () => {
-  const { city, barangay } = Address;
+  const { city, barangay } = ADDRESS;
   address.value.city = city;
   address.value.barangay = barangay;
 };
 const onCity = () => {
-  const { barangay } = Address;
+  const { barangay } = ADDRESS;
   address.value.barangay = barangay;
 };
 

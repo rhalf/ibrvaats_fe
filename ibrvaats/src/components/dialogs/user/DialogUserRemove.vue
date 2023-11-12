@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="640">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Remove User </Label>
+        <Label header> Remove User </Label>
       </v-card-title>
       <v-card-text>
         <Label text> Are you sure you want to remove this item?</Label>
@@ -33,7 +33,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { remove } from "@/api/user";
+import { remove } from "@/api/users";
 
 import { useModel, syncProp } from "@/utils/vue";
 

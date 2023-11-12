@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="1024" expand>
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> View Unit </Label>
+        <Label header> View Unit </Label>
       </v-card-title>
       <v-card-text>
         <FormUnit
@@ -52,7 +52,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { update } from "@/api/unit";
+import { update } from "@/api/units";
 
 import { useModel } from "@/utils/vue";
 

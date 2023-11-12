@@ -1,4 +1,4 @@
-import UserLayout from "@/components/layouts/user/UserLayout.vue";
+import UserLayout from "@/layouts/user/UserLayout.vue";
 
 export const user = {
   path: "/user",
@@ -16,12 +16,7 @@ export const user = {
       component: () => import("@/views/user/profile/ProfileView.vue"),
       meta: { authenticated: true },
     },
-    // {
-    //   path: "profile/update",
-    //   name: "UserProfileUpdate",
-    //   component: () => import("@/views/user/profile/ProfileUpdate.vue"),
-    //   meta: { authenticated: true },
-    // },
+
     {
       path: "password",
       name: "UserPassword",

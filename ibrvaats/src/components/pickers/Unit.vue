@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { getAllByOwner } from "@/api/unit";
+import { getAllByPolice } from "@/api/units";
 
 import { computed, toRefs, ref } from "vue";
 import { useModel } from "@/utils/vue";
@@ -37,7 +37,7 @@ const params = ref({
 const loadItems = async () => {
   try {
     isLoading.value = true;
-    items.value = await getAllByOwner(params.value);
+    items.value = await getAllByPolice(params.value);
   } catch ({ message }) {
     console.log("error", message);
   } finally {

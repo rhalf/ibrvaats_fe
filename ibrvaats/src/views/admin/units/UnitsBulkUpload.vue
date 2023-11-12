@@ -91,7 +91,7 @@ import DialogUnitViewFromUpload from "@/components/dialogs/unit/DialogUnitViewFr
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { batchAdd } from "@/api/unit";
+import { batchAdd } from "@/api/units";
 
 import { ref } from "vue";
 import { computed } from "vue";

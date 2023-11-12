@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="480">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Add Unit </Label>
+        <Label header> Add Unit </Label>
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -42,7 +42,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { getByOwnerAndId, addUnitToPet } from "@/api/unit";
+import { getByPoliceAndId, addUnitToPet } from "@/api/units";
 
 import { useModel } from "@/utils/vue";
 
@@ -63,7 +63,7 @@ const submitHandler = async () => {
     //get unit
     if (!unitUid.value) return;
 
-    const units = await getByOwnerAndId(unitUid.value);
+    const units = await getByPoliceAndId(unitUid.value);
 
     if (units.length === 0)
       throw new Error("Unit not yet Added to your Units!");

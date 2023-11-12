@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="480">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Add Unit </Label>
+        <Label header> Add Unit </Label>
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -36,7 +36,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { getByUid, update } from "@/api/unit";
+import { getByUid, update } from "@/api/units";
 
 import { useModel } from "@/utils/vue";
 

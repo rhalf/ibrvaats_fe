@@ -15,7 +15,7 @@ const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({ modelValue: String });
 const propsRef = toRefs(props);
 
-const items = ["RFID", "NFC"];
+const items = ["GPRS", "WIFI"];
 
 const type = computed(useModel(propsRef, emit, "modelValue"));
 

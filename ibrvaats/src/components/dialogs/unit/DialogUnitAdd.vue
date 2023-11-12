@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="1024" expand>
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Add Unit </Label>
+        <Label header> Add Unit </Label>
       </v-card-title>
       <v-card-text>
         <FormUnit
@@ -11,12 +11,12 @@
             'uid',
             'unitType',
             'formType',
+            'simNetwork',
+            'simNumber',
             'status',
             'applicationDate',
-            'pet',
-            'owner',
-            'veterinarian',
-            'government',
+            'vehicle',
+            'brand',
           ]"
         />
       </v-card-text>
@@ -45,7 +45,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { create } from "@/api/unit";
+import { create } from "@/api/units";
 
 import { useModel } from "@/utils/vue";
 

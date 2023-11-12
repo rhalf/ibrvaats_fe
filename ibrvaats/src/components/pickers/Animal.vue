@@ -1,8 +1,8 @@
 <template>
   <Autocomplete
     v-model="item"
-    :items="items"
     v-model:search="params.searchText"
+    :items="items"
     placeholder="Animal"
     :loading="isLoading"
     item-title="name"
@@ -19,9 +19,8 @@ import { debounce } from "lodash";
 
 import { getAll, search } from "@/api/animal";
 
-import { computed, toRefs, ref, watch } from "vue";
+import { computed, toRefs, ref, watch, onMounted } from "vue";
 import { useModel } from "@/utils/vue";
-import { onMounted } from "vue";
 
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({ modelValue: Object });

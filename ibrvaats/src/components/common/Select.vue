@@ -1,16 +1,16 @@
 <template>
-  <v-select v-bind="properties">
+  <v-select
+    density="comfortable"
+    :persistentPlaceholder="true"
+    hideDetails="auto"
+    :clearable="true"
+    variant="outlined"
+    rounded="xl"
+  >
     <slot />
   </v-select>
 </template>
 
-<script setup>
-const properties = {
-  density: "comfortable",
-  persistentPlaceholder: true,
-  hideDetails: "auto",
-  clearable: true,
-};
-</script>
+<script setup></script>
 
 <style scoped></style>

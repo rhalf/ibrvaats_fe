@@ -22,21 +22,20 @@
 import Sheet from "@/components/common/Sheet.vue";
 import Module from "./components/module/Module.vue";
 
-import { UserGroups } from "@/constants";
-const { OWNER, VETERINARIAN, ADMIN, GOVERNMENT } = UserGroups;
+import { USER_ROLES } from "@/constants";
+const { POLICE, MEDIC, ADMIN } = USER_ROLES;
 
-import { storeToRefs } from "pinia";
-import { computed, watch, ref } from "vue";
+import { ref, inject, watchEffect } from "vue";
 
-import { useUserStore } from "@/store/user";
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+const user = inject("user");
 
 import { dashboardItems } from "./data";
 
 const items = ref();
 
-const load = ({ roles }) => {
+const load = () => {
+  const { roles } = user.value;
+
   return dashboardItems.map((item) => {
     return {
       ...item,
@@ -45,21 +44,17 @@ const load = ({ roles }) => {
   });
 };
 
-const isAuthorized = (userRoles, roles) => {
+const isAuthorized = (USER_ROLES, roles) => {
   let result = false;
-  userRoles.forEach((role) => {
+  USER_ROLES.forEach((role) => {
     if (roles.includes(role)) result = true;
   });
   return result;
 };
 
-watch(
-  user,
-  async (current) => {
-    if (!current) return;
+watchEffect(async () => {
+  if (!user.value) return;
 
-    items.value = await load(current);
-  },
-  { immediate: true, deep: true }
-);
+  items.value = await load();
+});
 </script>

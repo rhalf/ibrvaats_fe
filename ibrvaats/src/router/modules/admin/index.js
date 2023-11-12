@@ -1,4 +1,4 @@
-import AdminLayout from "@/components/layouts/admin/AdminLayout.vue";
+import AdminLayout from "@/layouts/admin/AdminLayout.vue";
 
 export const admin = {
   path: "/admin",
@@ -11,23 +11,25 @@ export const admin = {
       meta: { authenticated: true, authorization: "ADMIN" },
     },
     {
-      path: "animals",
+      path: "police-stations",
       children: [
         {
           path: "summary",
-          name: "AdminAnimalsSummary",
-          component: () => import("@/views/admin/animals/AnimalsSummary.vue"),
+          name: "AdminPoliceStationsSummary",
+          component: () =>
+            import("@/views/admin/police-stations/PoliceStationsSummary.vue"),
           meta: { authenticated: true, authorization: "ADMIN" },
         },
       ],
     },
     {
-      path: "coats",
+      path: "medical-stations",
       children: [
         {
           path: "summary",
-          name: "AdminCoatsSummary",
-          component: () => import("@/views/admin/coats/CoatsSummary.vue"),
+          name: "AdminMedicalStationsSummary",
+          component: () =>
+            import("@/views/admin/medical-stations/MedicalStationsSummary.vue"),
           meta: { authenticated: true, authorization: "ADMIN" },
         },
       ],
@@ -59,28 +61,9 @@ export const admin = {
           meta: { authenticated: true, authorization: "ADMIN" },
         },
         {
-          path: ":id",
+          path: ":userId",
           name: "AdminUsersView",
           component: () => import("@/views/admin/users/UsersView.vue"),
-          meta: { authenticated: true, authorization: "ADMIN" },
-        },
-      ],
-    },
-    {
-      path: "governments",
-      children: [
-        {
-          path: "summary",
-          name: "AdminGovernmentsSummary",
-          component: () =>
-            import("@/views/admin/governments/GovernmentsSummary.vue"),
-          meta: { authenticated: true, authorization: "ADMIN" },
-        },
-        {
-          path: ":id",
-          name: "AdminGovernmentView",
-          component: () =>
-            import("@/views/admin/governments/GovernmentView.vue"),
           meta: { authenticated: true, authorization: "ADMIN" },
         },
       ],

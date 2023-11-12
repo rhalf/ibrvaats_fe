@@ -2,7 +2,7 @@
   <Dialog v-model="dialog" :width="640">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header class="text-black"> Remove Unit </Label>
+        <Label header> Remove Unit </Label>
       </v-card-title>
       <v-card-text>
         <Label text> Are you sure you want to remove this item?</Label>
@@ -33,7 +33,7 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { removeOwner } from "@/api/unit";
+import { removePolice } from "@/api/units";
 
 import { useModel, syncProp } from "@/utils/vue";
 
@@ -49,7 +49,7 @@ const unit = computed(syncProp(propRef, emit, "unit"));
 const submitHandler = async () => {
   try {
     isLoading.value = true;
-    const result = await removeOwner(unit.value);
+    const result = await removePolice(unit.value);
     show("success", "Removed an item!");
     emit("done");
     dialog.value = false;

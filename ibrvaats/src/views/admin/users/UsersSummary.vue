@@ -10,7 +10,7 @@
           <TextField
             v-model="params.searchText"
             append-inner-icon="mdi-magnify"
-            variant="outlined"
+            placeholder="Email"
             @keypress.enter="loadItems"
           />
         </v-col>
@@ -26,21 +26,12 @@
             :items-per-page="params.limit"
             hide-default-footer
             withView
-            withRemove
-            @remove="removeHandler"
             @view="viewHandler"
-            @next="nextHandler"
-            @prev="prevHandler"
+            @more="moreHandler"
           />
         </v-col>
       </v-row>
     </Sheet>
-
-    <DialogUserRemove
-      v-model="dialogUserRemove"
-      v-model:user="user"
-      @remove="loadItems"
-    />
   </v-container>
 </template>
 
@@ -52,24 +43,20 @@ import TextField from "@/components/common/TextField.vue";
 import DataTable from "@/components/tables/DataTable.vue";
 import { headers } from "./data";
 
-import DialogUserRemove from "@/components/dialogs/user/DialogUserRemove.vue";
-
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 const router = useRouter();
-const route = useRoute();
 
-import { search, next, prev } from "@/api/user";
+import { search, more } from "@/api/users";
 
 import { ref, onMounted } from "vue";
-
-const dialogUserRemove = ref(false);
 
 const isLoading = ref(false);
 const users = ref();
 const user = ref();
+
 const params = ref({
   searchText: "",
   columnName: "email",
@@ -78,16 +65,10 @@ const params = ref({
 });
 
 const viewHandler = ({ id }) => {
-  console.log(id);
   router.push({
     name: "AdminUsersView",
-    params: { id: id },
+    params: { userId: id },
   });
-};
-
-const removeHandler = async (item) => {
-  user.value = item;
-  dialogUserRemove.value = true;
 };
 
 onMounted(async () => {
@@ -99,31 +80,18 @@ const loadItems = async () => {
     isLoading.value = true;
     users.value = await search(params.value);
   } catch ({ message }) {
-    console.log("error", message);
+    show("error", message);
   } finally {
     isLoading.value = false;
   }
 };
 
-const nextHandler = async () => {
+const moreHandler = async () => {
   try {
-    isLoading.value = true;
-    users.value = await next(params.value);
+    const result = await more(params.value);
+    users.value = [...users.value, ...result];
   } catch ({ message }) {
-    console.log("error", message);
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-const prevHandler = async () => {
-  try {
-    isLoading.value = true;
-    users.value = await prev(params.value);
-  } catch ({ message }) {
-    console.log("error", message);
-  } finally {
-    isLoading.value = false;
+    show("error", message);
   }
 };
 </script>

@@ -44,14 +44,6 @@
           </v-row>
         </v-col>
       </v-row>
-
-      <v-row>
-        <v-col>
-          <Button block variant="outlined" size="large" @click="searchHandler">
-            Search Pet
-          </Button>
-        </v-col>
-      </v-row>
     </v-form>
   </v-container>
 </template>
@@ -102,9 +94,5 @@ const onSubmitHandler = async (event) => {
   } finally {
     stop();
   }
-};
-
-const searchHandler = () => {
-  router.push({ name: "SearchDashboard" });
 };
 </script>

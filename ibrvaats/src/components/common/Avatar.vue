@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import AccountEmptyOwner from "@/assets/images/accounts/account-empty.png";
+import AccountEmptyPolice from "@/assets/images/accounts/account-empty.png";
 import AccountEmptyPet from "@/assets/images/pets/account-empty.png";
 
 import { toRefs, computed } from "vue";
@@ -25,7 +25,7 @@ const { type, size } = propsRef;
 const src = computed(useModel(propsRef, emit, "modelValue"));
 
 const lazy = computed(() => {
-  if (type.value === "OWNER") return AccountEmptyOwner;
+  if (type.value === "OWNER") return AccountEmptyPolice;
   if (type.value === "PET") return AccountEmptyPet;
 });
 </script>

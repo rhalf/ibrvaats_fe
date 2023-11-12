@@ -8,8 +8,8 @@
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
 
-import lightTheme from "./themes/light";
-import darkTheme from "./themes/dark";
+import light from "./themes/light";
+import dark from "./themes/dark";
 
 // Composables
 import { createVuetify } from "vuetify";
@@ -17,10 +17,10 @@ import { createVuetify } from "vuetify";
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   theme: {
-    defaultTheme: "darkTheme",
+    defaultTheme: "light",
     themes: {
-      // lightTheme,
-      darkTheme,
+      light,
+      dark,
     },
   },
 });
