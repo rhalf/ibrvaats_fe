@@ -23,7 +23,7 @@
                         position="solo"
                       />
                       <Label class="text-h6">
-                        IoT-Based Realtime Vehicle Accident Alert and Tracking
+                        IoT-Based Real-Time Vehicle Accident Alert and Tracking
                         System</Label
                       >
 

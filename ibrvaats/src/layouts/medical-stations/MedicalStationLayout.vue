@@ -43,25 +43,25 @@ const withDrawer = computed(() => {
   return !!route.params.medicalStationId;
 });
 
-watchEffect(async () => {
-  try {
-    if (!user.value) return;
+// watchEffect(async () => {
+//   try {
+//     if (!user.value) return;
 
-    start();
+//     start();
 
-    const { roles } = user.value;
-    const { authorization } = route.meta;
+//     const { roles } = user.value;
+//     const { authorization } = route.meta;
 
-    if (route.params.medicalStationId)
-      medicalStation.value = await get(route.params.medicalStationId);
+//     if (route.params.medicalStationId)
+//       medicalStation.value = await get(route.params.medicalStationId);
 
-    if (roles.includes(authorization) || roles.includes(ADMIN))
-      console.log("ALLOWED");
-    else router.push({ name: "ForbiddenView" });
-  } catch ({ message }) {
-    show("error", message);
-  } finally {
-    stop();
-  }
-});
+//     if (roles.includes(authorization) || roles.includes(ADMIN))
+//       console.log("ALLOWED");
+//     else router.push({ name: "ForbiddenView" });
+//   } catch ({ message }) {
+//     show("error", message);
+//   } finally {
+//     stop();
+//   }
+// });
 </script>

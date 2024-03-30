@@ -16,7 +16,7 @@ export default {
 
   match: (value, value1, name = "field") => {
     if (value === value1) return true;
-    return `The ${name} did not matched.`;
+    return `The ${name} did not match.`;
   },
 
   email: (value) => {

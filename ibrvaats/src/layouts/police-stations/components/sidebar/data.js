@@ -8,7 +8,7 @@ export const items = [
   {
     icon: "mdi-account-group",
     title: "Users",
-    subtitle: "Manage users",
+    subtitle: "Manage Users",
     to: { name: "PoliceStationUsersSummary" },
   },
   {
@@ -19,8 +19,8 @@ export const items = [
   },
   {
     icon: "mdi-database",
-    title: "Data",
-    subtitle: "Manage Datas",
+    title: "Accident Datas",
+    subtitle: "Manage Accident Datas",
     to: { name: "PoliceStationDatasSummary" },
   },
 ];

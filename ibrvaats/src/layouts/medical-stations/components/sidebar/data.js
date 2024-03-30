@@ -5,22 +5,22 @@ export const items = [
     subtitle: "Dashboard View",
     to: { name: "MedicalStationDashboard" },
   },
-  {
-    icon: "mdi-account-group",
-    title: "Users",
-    subtitle: "Manage users",
-    to: { name: "MedicalStationUsersSummary" },
-  },
-  {
-    icon: "mdi-access-point",
-    title: "Units",
-    subtitle: "Manage Units",
-    to: { name: "MedicalStationUnitsSummary" },
-  },
+  // {
+  //   icon: "mdi-account-group",
+  //   title: "Users",
+  //   subtitle: "Manage Users",
+  //   to: { name: "MedicalStationUsersSummary" },
+  // },
+  // {
+  //   icon: "mdi-access-point",
+  //   title: "Units",
+  //   subtitle: "Manage Units",
+  //   to: { name: "MedicalStationUnitsSummary" },
+  // },
   {
     icon: "mdi-database",
-    title: "Data",
-    subtitle: "Manage Datas",
+    title: "Accident Datas",
+    subtitle: "Manage Accident Datas",
     to: { name: "MedicalStationDatasSummary" },
   },
 ];

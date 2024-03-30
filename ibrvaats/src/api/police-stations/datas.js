@@ -23,7 +23,7 @@ import {
 
 import { toObject, toArray, getIndexes } from "../index";
 
-const collectionName = "datas";
+const collectionName = "Accident Datas";
 const collectionRef = collection(firestore, collectionName);
 
 let indexes;
