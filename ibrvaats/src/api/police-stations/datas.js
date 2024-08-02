@@ -19,51 +19,60 @@ import {
   endBefore,
   limitToLast,
   getCountFromServer,
+  onSnapshot,
 } from "firebase/firestore";
 
 import { toObject, toArray, getIndexes } from "../index";
 
-const collectionName = "Accident Datas";
+const collectionName = "datas";
 const collectionRef = collection(firestore, collectionName);
 
 let indexes;
 
-export const search = async ({
-  searchText,
-  columnName,
-  orderDirection,
-  limitNumber,
-}) => {
+export const changes = async (params, condition, callback) => {
+  const { columnName, orderDirection, limitNumber } = params;
   const q = await query(
     collectionRef,
     orderBy(columnName, orderDirection),
-    startAt(searchText),
-    endAt(searchText + "\uf8ff"),
+    // startAt(searchText),
+    // endAt(searchText + "\uf8ff"),
+    limit(limitNumber)
+  );
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === condition) callback();
+    });
+  });
+};
+
+export const search = async (params) => {
+  const { columnName, orderDirection, limitNumber } = params;
+  const q = await query(
+    collectionRef,
+    orderBy(columnName, orderDirection),
+    // startAt(searchText),
+    // endAt(searchText + "\uf8ff"),
     limit(limitNumber)
   );
   const snapshots = await getDocs(q);
-  if (snapshots.empty) throw new Error("Empty page!");
+  if (!snapshots.empty) indexes = getIndexes(snapshots);
 
-  indexes = getIndexes(snapshots);
   return toArray(snapshots);
 };
 
-export const next = async ({
-  lastItem,
-  columnName,
-  orderDirection,
-  limitNumber,
-}) => {
+export const more = async (params) => {
+  const { columnName, orderDirection, limitNumber } = params;
   const q = await query(
     collectionRef,
     orderBy(columnName, orderDirection),
     startAfter(indexes.lastItem),
     limit(limitNumber)
   );
-  const snapshots = await getDocs(q);
-  if (snapshots.empty) throw new Error("Last page!");
 
-  indexes = getIndexes(snapshots);
+  const snapshots = await getDocs(q);
+  if (!snapshots.empty) indexes = getIndexes(snapshots);
+
   return toArray(snapshots);
 };
 

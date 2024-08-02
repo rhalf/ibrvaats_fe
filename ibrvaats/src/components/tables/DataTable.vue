@@ -81,14 +81,57 @@
       </Label>
     </template>
 
-    <!-- <template v-slot:item.colors="{ item, index }">
-      <Colors :colors="item.colors" />
-    </template> -->
+    <template v-slot:item.date="{ item, index }">
+      {{ toStringDatetime(item.date) }}
+    </template>
 
     <template v-slot:item.age="{ item, index }">
-      <Label text class="mt-2">
+      <Label text class="mt-2" @click="">
         {{ toStringAge(getAge(item.birthDate)) }}
       </Label>
+    </template>
+
+    <!-- Gps -->
+    <template v-slot:item.coordinates="{ item, index }">
+      <Button
+        @click="gotoLocation(item.latitude, item.longitude)"
+        variant="text"
+        icon
+      >
+        <v-icon>mdi-map-marker</v-icon>
+      </Button>
+    </template>
+
+    <template v-slot:item.satellite="{ item, index }">
+      <Button variant="text">
+        <v-icon class="mr-4">mdi-satellite-variant</v-icon>
+        {{ item.satellite }}
+      </Button>
+    </template>
+
+    <template v-slot:item.gpsFixed="{ item, index }">
+      <Button variant="text">
+        <v-icon v-if="item.gpsFixed" color="green"> mdi-check</v-icon>
+        <v-icon v-else color="red"> mdi-close</v-icon>
+      </Button>
+    </template>
+    <template v-slot:item.shock="{ item, index }">
+      <Button variant="text">
+        <v-icon v-if="item.shock" color="green"> mdi-check</v-icon>
+        <v-icon v-else color="red"> mdi-close</v-icon>
+      </Button>
+    </template>
+
+    <template v-slot:item.course="{ item, index }">
+      <Button variant="text">
+        {{ roundOff(item.course, 2) }}°,
+
+        {{ degreeToCompass(item.course) }}
+      </Button>
+    </template>
+
+    <template v-slot:item.speed="{ item, index }">
+      <Button variant="text"> {{ Math.floor(item.speed) }} kph </Button>
     </template>
   </v-data-table>
 </template>
@@ -106,6 +149,15 @@ import Button from "@/components/common/Button";
 
 import { getAge, toStringAge } from "@/utils/vue";
 
+import { Timestamp } from "firebase/firestore";
+
+import { degreeToCompass } from "@/utils/conversion";
+
+const toStringDatetime = (date) => {
+  if (date instanceof Timestamp) return date.toDate().toLocaleString();
+  else return date.toLocaleString();
+};
+
 const emit = defineEmits([
   "view",
   "update",
@@ -121,6 +173,17 @@ const props = defineProps({
   disabled: Boolean,
   withAdd: Boolean,
 });
+
+const roundOff = (value, places) => {
+  const multiplier = 10 ** places;
+
+  return Math.round(value * multiplier) / multiplier;
+};
+
+const gotoLocation = (latitude, longitude) => {
+  const link = `https://www.google.com/maps/place/${latitude},${longitude}`;
+  window.open(link);
+};
 </script>
 
 <style scoped>

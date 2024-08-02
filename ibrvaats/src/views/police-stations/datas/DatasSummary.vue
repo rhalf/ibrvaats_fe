@@ -7,12 +7,12 @@
         </v-col>
         <v-spacer />
         <v-col cols="12" md="3">
-          <TextField
+          <!-- <TextField
             v-model="params.searchText"
             append-inner-icon="mdi-magnify"
             variant="outlined"
             @keypress.enter="loadItems"
-          />
+          /> -->
         </v-col>
       </v-row>
 
@@ -22,30 +22,27 @@
             hover
             :loading="isLoading"
             :headers="headers"
-            :items="units"
+            :items="accidentDatas"
             :items-per-pageNumber="params.limitNumber"
             hide-default-footer
             withRemove
-            withAdd
-            withView
+            withMore
             @remove="removeHandler"
             @view="viewHandler"
-            @add="addHandler"
-            @next="nextHandler"
-            @prev="prevHandler"
+            @more="moreHandler"
           />
         </v-col>
       </v-row>
     </Sheet>
-    <DialogUnitAdd v-model="dialogUnitAdd" @done="loadItems" />
+    <!-- <DialogUnitAdd v-model="dialogUnitAdd" @done="loadItems" />
     <DialogUnitView
       v-model="dialogUnitView"
       v-model:unit="unit"
       @done="loadItems"
-    />
-    <DialogUnitRemove
-      v-model="dialogUnitRemove"
-      v-model:unit="unit"
+    /> -->
+    <DialogAccidentDataRemove
+      v-model="dialogAccidentDataRemove"
+      v-model:accident-data="accidentData"
       @done="loadItems"
     />
   </v-container>
@@ -59,9 +56,9 @@ import TextField from "@/components/common/TextField.vue";
 import DataTable from "@/components/tables/DataTable.vue";
 import { headers } from "./data";
 
-import DialogUnitAdd from "@/components/dialogs/unit/DialogUnitAdd.vue";
-import DialogUnitView from "@/components/dialogs/unit/DialogUnitView.vue";
-import DialogUnitRemove from "@/components/dialogs/unit/DialogUnitRemove.vue";
+// import DialogUnitAdd from "@/components/dialogs/unit/DialogUnitAdd.vue";
+// import DialogUnitView from "@/components/dialogs/unit/DialogUnitView.vue";
+import DialogAccidentDataRemove from "@/components/dialogs/accident-data/DialogAccidentDataRemove.vue";
 
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
@@ -69,45 +66,44 @@ const { show } = useSnackbarStore();
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-import { search, next, prev } from "@/api/police-stations/datas";
-import { countByPolice as countUnit } from "@/api/units";
+import { search, more, changes } from "@/api/police-stations/datas";
 
 import { ref, onMounted } from "vue";
 
 const dialogUnitAdd = ref(false);
 const dialogUnitView = ref(false);
-const dialogUnitRemove = ref(false);
+const dialogAccidentDataRemove = ref(false);
 
 const isLoading = ref(false);
-const units = ref();
-const unit = ref();
+const accidentDatas = ref();
+const accidentData = ref();
 const params = ref({
   searchText: "",
-  columnName: "name",
-  orderDirection: "asc",
+  columnName: "date",
+  orderDirection: "desc",
   limitNumber: 5,
 });
 
-const addHandler = async () => {
-  try {
-    isLoading.value = true;
+// const addHandler = async () => {
+//   try {
+//     isLoading.value = true;
 
-    dialogUnitAdd.value = true;
-  } catch ({ message }) {
-    show("error", message);
-  } finally {
-    isLoading.value = false;
-  }
-};
+//     dialogUnitAdd.value = true;
+//   } catch ({ message }) {
+//     show("error", message);
+//   } finally {
+//     isLoading.value = false;
+//   }
+// };
 
-const updateHandler = (item) => {
-  unit.value = item;
-  dialogUnitView.value = true;
-};
+// const updateHandler = (item) => {
+//   unit.value = item;
+//   dialogUnitView.value = true;
+// };
 
 const removeHandler = async (item) => {
-  unit.value = item;
-  dialogUnitRemove.value = true;
+  accidentData.value = item;
+  dialogAccidentDataRemove.value = true;
 };
 
 const viewHandler = async (item) => {
@@ -121,12 +117,13 @@ const viewHandler = async (item) => {
 
 onMounted(async () => {
   await loadItems();
+  await changes(params.value, "added", loadItems);
 });
 
 const loadItems = async () => {
   try {
     isLoading.value = true;
-    units.value = await search(params.value);
+    accidentDatas.value = await search(params.value);
   } catch ({ message }) {
     console.log("error", message);
   } finally {
@@ -134,21 +131,11 @@ const loadItems = async () => {
   }
 };
 
-const nextHandler = async () => {
+const moreHandler = async () => {
   try {
     isLoading.value = true;
-    units.value = await next(params.value);
-  } catch ({ message }) {
-    console.log("error", message);
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-const prevHandler = async () => {
-  try {
-    isLoading.value = true;
-    units.value = await prev(params.value);
+    const result = await more(params.value);
+    accidentDatas.value = [...accidentDatas.value, ...result];
   } catch ({ message }) {
     console.log("error", message);
   } finally {
