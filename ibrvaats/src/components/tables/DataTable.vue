@@ -82,7 +82,10 @@
     </template>
 
     <template v-slot:item.date="{ item, index }">
-      {{ toStringDatetime(item.date) }}
+      <Button variant="text">
+        <v-icon class="mr-2">mdi-watch</v-icon>
+        <Label caption> {{ toStringDatetime(item.date) }}</Label>
+      </Button>
     </template>
 
     <template v-slot:item.age="{ item, index }">
@@ -96,15 +99,16 @@
       <Button
         @click="gotoLocation(item.latitude, item.longitude)"
         variant="text"
-        icon
       >
-        <v-icon>mdi-map-marker</v-icon>
+        <v-icon class="mr-2">mdi-map-marker</v-icon>
+
+        <Label caption> {{ item.latitude }}, {{ item.longitude }} </Label>
       </Button>
     </template>
 
     <template v-slot:item.satellite="{ item, index }">
       <Button variant="text">
-        <v-icon class="mr-4">mdi-satellite-variant</v-icon>
+        <v-icon class="mr-2">mdi-satellite-variant</v-icon>
         {{ item.satellite }}
       </Button>
     </template>
@@ -131,7 +135,7 @@
     </template>
 
     <template v-slot:item.speed="{ item, index }">
-      <Button variant="text"> {{ Math.floor(item.speed) }} kph </Button>
+      <Button variant="text"> {{ roundOff(item.speed, 1) }} kph </Button>
     </template>
   </v-data-table>
 </template>

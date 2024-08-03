@@ -30,6 +30,7 @@
             @remove="removeHandler"
             @view="viewHandler"
             @more="moreHandler"
+            :items-per-page="0"
           />
         </v-col>
       </v-row>
@@ -77,6 +78,7 @@ const dialogAccidentDataRemove = ref(false);
 const isLoading = ref(false);
 const accidentDatas = ref();
 const accidentData = ref();
+
 const params = ref({
   searchText: "",
   columnName: "date",

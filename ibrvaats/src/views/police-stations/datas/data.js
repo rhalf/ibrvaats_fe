@@ -14,19 +14,18 @@ export const headers = [
     key: "actions",
   },
   {
-    title: "Mac",
-    align: "start",
-    sortable: false,
-    key: "mac",
-    width: "100",
-  },
-
-  {
     title: "Date",
     align: "start",
     sortable: false,
     key: "date",
     width: "250",
+  },
+  {
+    title: "Mac",
+    align: "start",
+    sortable: false,
+    key: "mac",
+    width: "100",
   },
 
   {

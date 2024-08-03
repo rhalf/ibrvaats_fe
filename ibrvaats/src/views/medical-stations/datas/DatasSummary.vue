@@ -30,6 +30,7 @@
             @remove="removeHandler"
             @view="viewHandler"
             @more="moreHandler"
+            :items-per-page="0"
           />
         </v-col>
       </v-row>
@@ -135,7 +136,7 @@ const moreHandler = async () => {
   try {
     isLoading.value = true;
     const result = await more(params.value);
-    accidentDatas.value = [...accidentDatas.value, ...result];
+    accidentDatas.value = [...result, ...accidentDatas.value];
   } catch ({ message }) {
     console.log("error", message);
   } finally {
