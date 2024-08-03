@@ -3,7 +3,7 @@
     <Sheet>
       <v-row dense>
         <v-col cols="auto">
-          <Label title class="text-primary">Accident Datas</Label>
+          <Label title class="text-primary">Accident Data</Label>
         </v-col>
         <v-spacer />
         <v-col cols="12" md="3">

@@ -19,8 +19,8 @@ export const items = [
   // },
   {
     icon: "mdi-database",
-    title: "Accident Datas",
-    subtitle: "Manage Accident Datas",
+    title: "Accident Data",
+    subtitle: "Manage Accident Data",
     to: { name: "MedicalStationDatasSummary" },
   },
 ];
