@@ -56,7 +56,6 @@ const loadCounters = async () => {
 };
 
 watchEffect(async () => {
-  // if (user.value && policeStation.value) loadCounters();
-  loadCounters();
+  if (user.value && policeStation.value) loadCounters();
 });
 </script>

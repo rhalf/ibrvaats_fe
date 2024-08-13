@@ -138,7 +138,6 @@ const showVehicleHandler = async ({ plateNumber }) => {
   try {
     isLoading.value = true;
     const result = await getByPlateNumber(plateNumber);
-    console.log(result);
     vehicle.value = result[0];
   } catch ({ message }) {
     console.log("error", message);

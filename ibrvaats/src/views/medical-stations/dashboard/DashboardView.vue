@@ -52,7 +52,6 @@ const loadCounters = async () => {
 };
 
 watchEffect(async () => {
-  // if (user.value && medicalStation.value) loadCounters();
-  loadCounters();
+  if (user.value && medicalStation.value) loadCounters();
 });
 </script>
