@@ -25,22 +25,22 @@
             :items="accidentDatas"
             :items-per-pageNumber="params.limitNumber"
             hide-default-footer
-            withRemove
             withMore
             @remove="removeHandler"
             @view="viewHandler"
             @more="moreHandler"
+            @showVehicle="showVehicleHandler"
             :items-per-page="0"
           />
         </v-col>
       </v-row>
     </Sheet>
-    <!-- <DialogUnitAdd v-model="dialogUnitAdd" @done="loadItems" />
-    <DialogUnitView
-      v-model="dialogUnitView"
-      v-model:unit="unit"
-      @done="loadItems"
-    /> -->
+    <DialogVehicleView
+      v-model="dialogVehicleView"
+      v-model:vehicle="vehicle"
+      readOnly
+    />
+
     <DialogAccidentDataRemove
       v-model="dialogAccidentDataRemove"
       v-model:accident-data="accidentData"
@@ -57,8 +57,7 @@ import TextField from "@/components/common/TextField.vue";
 import DataTable from "@/components/tables/DataTable.vue";
 import { headers } from "./data";
 
-// import DialogUnitAdd from "@/components/dialogs/unit/DialogUnitAdd.vue";
-// import DialogUnitView from "@/components/dialogs/unit/DialogUnitView.vue";
+import DialogVehicleView from "@/components/dialogs/vehicle/DialogVehicleView.vue";
 import DialogAccidentDataRemove from "@/components/dialogs/accident-data/DialogAccidentDataRemove.vue";
 
 import { useSnackbarStore } from "@/store/snackbar";
@@ -68,34 +67,24 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 import { search, more, changes } from "@/api/police-stations/datas";
+import { getByPlateNumber } from "@/api/vehicles";
 
 import { ref, onMounted } from "vue";
 
-const dialogUnitAdd = ref(false);
-const dialogUnitView = ref(false);
 const dialogAccidentDataRemove = ref(false);
+const dialogVehicleView = ref(false);
 
 const isLoading = ref(false);
 const accidentDatas = ref();
 const accidentData = ref();
+const vehicle = ref();
+
 const params = ref({
   searchText: "",
-  columnName: "date",
+  columnName: "gpsTime",
   orderDirection: "desc",
-  limitNumber: 5,
+  limitNumber: 10,
 });
-
-// const addHandler = async () => {
-//   try {
-//     isLoading.value = true;
-
-//     dialogUnitAdd.value = true;
-//   } catch ({ message }) {
-//     show("error", message);
-//   } finally {
-//     isLoading.value = false;
-//   }
-// };
 
 // const updateHandler = (item) => {
 //   unit.value = item;
@@ -136,11 +125,25 @@ const moreHandler = async () => {
   try {
     isLoading.value = true;
     const result = await more(params.value);
-    accidentDatas.value = [...result, ...accidentDatas.value];
+    accidentDatas.value = [...accidentDatas.value, ...result];
   } catch ({ message }) {
     console.log("error", message);
   } finally {
     isLoading.value = false;
   }
+};
+
+const showVehicleHandler = async ({ plateNumber }) => {
+  try {
+    isLoading.value = true;
+    const result = await getByPlateNumber(plateNumber);
+    console.log(result);
+    vehicle.value = result[0];
+  } catch ({ message }) {
+    console.log("error", message);
+  } finally {
+    isLoading.value = false;
+  }
+  dialogVehicleView.value = true;
 };
 </script>

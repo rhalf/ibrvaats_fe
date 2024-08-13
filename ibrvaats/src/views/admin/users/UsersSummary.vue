@@ -27,10 +27,21 @@
             hide-default-footer
             withView
             @view="viewHandler"
+            @changeRole="changeRolesHandler"
+            @changeStatus="changeStatusHandler"
             @more="moreHandler"
           />
         </v-col>
       </v-row>
+
+      <DialogUserChangeRoles
+        v-model="dialogUserChangeRoles"
+        v-model:user="user"
+      />
+      <DialogUserChangeStatus
+        v-model="dialogUserChangeStatus"
+        v-model:user="user"
+      />
     </Sheet>
   </v-container>
 </template>
@@ -42,6 +53,12 @@ import TextField from "@/components/common/TextField.vue";
 
 import DataTable from "@/components/tables/DataTable.vue";
 import { headers } from "./data";
+
+import DialogUserChangeRoles from "@/components/dialogs/user/DialogUserChangeRoles.vue";
+const dialogUserChangeRoles = ref(false);
+
+import DialogUserChangeStatus from "@/components/dialogs/user/DialogUserChangeStatus.vue";
+const dialogUserChangeStatus = ref(false);
 
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
@@ -69,6 +86,16 @@ const viewHandler = ({ id }) => {
     name: "AdminUsersView",
     params: { userId: id },
   });
+};
+
+const changeRolesHandler = (item) => {
+  user.value = item;
+  dialogUserChangeRoles.value = true;
+};
+
+const changeStatusHandler = (item) => {
+  user.value = item;
+  dialogUserChangeStatus.value = true;
 };
 
 onMounted(async () => {

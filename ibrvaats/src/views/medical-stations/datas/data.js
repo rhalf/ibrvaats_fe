@@ -1,33 +1,19 @@
 export const headers = [
-  // {
-  //   title: "ID",
-  //   align: "start",
-  //   sortable: false,
-  //   key: "id",
-  //   width: "30%",
-  // },
-  // {
-  //   title: "Actions",
-  //   align: "start",
-  //   sortable: false,
-  //   width: 120,
-  //   key: "actions",
-  // },
-
   {
-    title: "Date",
+    title: "Gps Time",
     align: "start",
     sortable: false,
-    key: "date",
+    key: "gpsTime",
     width: "250",
   },
   {
-    title: "Mac",
+    title: "Plate",
     align: "start",
     sortable: false,
-    key: "mac",
+    key: "plateNumber",
     width: "100",
   },
+
   {
     title: "Coordinates",
     align: "start",
@@ -57,20 +43,20 @@ export const headers = [
     key: "satellite",
     width: "50",
   },
-  {
-    title: "GpsFixed",
-    align: "start",
-    sortable: false,
-    key: "gpsFixed",
-    width: "50",
-  },
-  {
-    title: "Shock",
-    align: "start",
-    sortable: false,
-    key: "shock",
-    width: "50",
-  },
+  // {
+  //   title: "GpsFixed",
+  //   align: "start",
+  //   sortable: false,
+  //   key: "gpsFixed",
+  //   width: "50",
+  // },
+  // {
+  //   title: "Shock",
+  //   align: "start",
+  //   sortable: false,
+  //   key: "shock",
+  //   width: "50",
+  // },
   {
     title: "Course",
     align: "start",
@@ -84,5 +70,19 @@ export const headers = [
     sortable: false,
     key: "speed",
     width: "50",
+  },
+  {
+    title: "Orientation",
+    align: "start",
+    sortable: false,
+    key: "orientation",
+    width: "100",
+  },
+  {
+    title: "Collision",
+    align: "start",
+    sortable: false,
+    key: "collision",
+    width: "100",
   },
 ];

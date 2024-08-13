@@ -2,12 +2,13 @@
   <Dialog v-model="dialog" :width="640">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header> Remove User </Label>
+        <Label header> Remove Vehicle </Label>
       </v-card-title>
       <v-card-text>
         <Label text> Are you sure you want to remove this item?</Label>
         <br />
-        <Label header>Id : "{{ user.id }}" </Label>
+        <Label header>ID : "{{ vehicle.id }}" </Label>
+        <Label header>PlateNumber : "{{ vehicle.plateNumber }}" </Label>
       </v-card-text>
       <v-card-actions>
         <v-row dense class="py-4 px-4">
@@ -33,23 +34,23 @@ import Card from "@/components/common/Card.vue";
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { remove } from "@/api/users";
+import { remove } from "@/api/vehicles";
 
-import { useModel } from "@/utils/vue";
+import { useModel, syncProp } from "@/utils/vue";
 
 import { ref, computed, toRefs } from "vue";
-const props = defineProps({ modelValue: Boolean, user: Object });
+const props = defineProps({ modelValue: Boolean, vehicle: Object });
 const propRef = toRefs(props);
-const emit = defineEmits(["update:modelValue", "update:user", "done"]);
+const emit = defineEmits(["update:modelValue", "update:vehicle", "done"]);
 
 const isLoading = ref(false);
 const dialog = computed(useModel(propRef, emit, "modelValue"));
-const user = computed(useModel(propRef, emit, "user"));
+const vehicle = computed(syncProp(propRef, emit, "vehicle"));
 
 const submitHandler = async () => {
   try {
     isLoading.value = true;
-    const result = await remove(user.value);
+    const result = await remove(vehicle.value);
     show("success", "Removed an item!");
     emit("done");
     dialog.value = false;

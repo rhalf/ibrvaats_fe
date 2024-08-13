@@ -18,10 +18,10 @@ export const items = [
     to: { name: "AdminMedicalStationsSummary" },
   },
   {
-    icon: "mdi-access-point",
-    title: "Units",
-    subtitle: "Manage Units",
-    to: { name: "AdminUnitsSummary" },
+    icon: "mdi-car",
+    title: "Vehicles",
+    subtitle: "Manage Vehicles",
+    to: { name: "AdminVehiclesSummary" },
 
     // children: [
     //   {

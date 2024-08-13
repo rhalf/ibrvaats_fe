@@ -3,7 +3,7 @@ export const headers = [
     title: "Actions",
     align: "start",
     sortable: false,
-    width: 120,
+    width: 150,
     key: "actions",
   },
   {
@@ -11,13 +11,13 @@ export const headers = [
     align: "start",
     sortable: false,
     key: "name",
-    width: "50%",
+    width: "300",
   },
   {
     title: "Address",
     align: "start",
     sortable: false,
     key: "address",
-    width: "50%",
+    width: "300",
   },
 ];

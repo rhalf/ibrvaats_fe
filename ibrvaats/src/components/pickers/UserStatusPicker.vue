@@ -24,9 +24,9 @@ const propsRef = toRefs(props);
 
 const { remove } = propsRef;
 
-import { USER_ROLES } from "@/constants";
+import { Statuses } from "@/constants";
 
-const items = Object.keys(USER_ROLES);
+const items = Object.keys(Statuses);
 
 //items.splice(0, 1);
 

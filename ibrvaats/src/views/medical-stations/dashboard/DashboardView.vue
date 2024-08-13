@@ -29,9 +29,7 @@ import Counter from "@/components/views/counter/Counter.vue";
 import { useProgressLineStore } from "@/store/progress-line";
 const { start, stop } = useProgressLineStore();
 
-import { count as countUsers } from "@/api/police-stations/users";
-import { count as countUnits } from "@/api/police-stations/units";
-import { count as countDatas } from "@/api/police-stations/datas";
+import { count as countDatas } from "@/api/datas";
 
 import { ref, watchEffect, inject } from "vue";
 
@@ -45,9 +43,7 @@ const counters = ref(dashboardItems);
 const loadCounters = async () => {
   try {
     start();
-    counters.value[0].count = await countUsers(medicalStation.value);
-    counters.value[1].count = await countUnits(user.value);
-    counters.value[2].count = await countDatas(user.value);
+    counters.value[0].count = await countDatas();
   } catch ({ message }) {
     console.log("error", message);
   } finally {
@@ -56,6 +52,7 @@ const loadCounters = async () => {
 };
 
 watchEffect(async () => {
-  if (user.value && medicalStation.value) loadCounters();
+  // if (user.value && medicalStation.value) loadCounters();
+  loadCounters();
 });
 </script>

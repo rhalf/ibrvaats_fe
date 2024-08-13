@@ -63,13 +63,13 @@ export const policeStations = {
       ],
     },
     {
-      path: ":policeStationId/units",
+      path: ":policeStationId/vehicles",
       children: [
         {
           path: "summary",
-          name: "PoliceStationUnitsSummary",
+          name: "PoliceStationVehiclesSummary",
           component: () =>
-            import("@/views/police-stations/units/UnitsSummary.vue"),
+            import("@/views/police-stations/vehicles/VehiclesSummary.vue"),
           meta: { authenticated: true, authorization: POLICE },
         },
       ],

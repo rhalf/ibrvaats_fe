@@ -6,16 +6,10 @@ export const items = [
     to: { name: "PoliceStationDashboard" },
   },
   {
-    icon: "mdi-account-group",
-    title: "Users",
-    subtitle: "Manage Users",
-    to: { name: "PoliceStationUsersSummary" },
-  },
-  {
-    icon: "mdi-access-point",
-    title: "Units",
-    subtitle: "Manage Units",
-    to: { name: "PoliceStationUnitsSummary" },
+    icon: "mdi-car",
+    title: "Vehicles",
+    subtitle: "Manage Vehicles",
+    to: { name: "PoliceStationVehiclesSummary" },
   },
   {
     icon: "mdi-database",

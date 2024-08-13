@@ -34,7 +34,7 @@ const { start, stop } = useProgressLineStore();
 
 import { count as countPoliceStations } from "@/api/police-stations";
 import { count as countMedicalStations } from "@/api/medical-stations";
-import { count as countUnits } from "@/api/units";
+import { count as countVehicles } from "@/api/vehicles";
 import { count as countUsers } from "@/api/users";
 
 import { dashboardItems } from "./data";
@@ -48,7 +48,7 @@ onMounted(async () => {
     start();
     counters.value[0].count = await countPoliceStations();
     counters.value[1].count = await countMedicalStations();
-    counters.value[2].count = await countUnits();
+    counters.value[2].count = await countVehicles();
     counters.value[3].count = await countUsers();
   } catch ({ message }) {
     show("error", message);

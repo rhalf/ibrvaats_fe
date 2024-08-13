@@ -46,6 +46,7 @@
             <UserRolePicker
               v-model="data.role"
               :rules="[validation.required]"
+              remove="ADMIN"
             />
           </v-col>
         </v-row>
@@ -77,8 +78,8 @@ import UserRolePicker from "@/components/pickers/UserRolePicker";
 // import PoliceStationPicker from "@/components/pickers/PoliceStationPicker";
 // import MedicalStationPicker from "@/components/pickers/MedicalStationPicker";
 
-import { USER_ROLES } from "@/constants";
-const { MEDIC, POLICE, ADMIN } = USER_ROLES;
+// import { USER_ROLES } from "@/constants";
+// const { MEDIC, POLICE, ADMIN } = USER_ROLES;
 
 import { toRefs, computed } from "vue";
 import { useModel } from "@/utils/vue";

@@ -35,18 +35,12 @@ export const admin = {
       ],
     },
     {
-      path: "units",
+      path: "vehicles",
       children: [
         {
           path: "summary",
-          name: "AdminUnitsSummary",
-          component: () => import("@/views/admin/units/UnitsSummary.vue"),
-          meta: { authenticated: true, authorization: "ADMIN" },
-        },
-        {
-          path: "bulk-upload",
-          name: "AdminUnitsBulkUpload",
-          component: () => import("@/views/admin/units/UnitsBulkUpload.vue"),
+          name: "AdminVehiclesSummary",
+          component: () => import("@/views/admin/vehicles/VehiclesSummary.vue"),
           meta: { authenticated: true, authorization: "ADMIN" },
         },
       ],

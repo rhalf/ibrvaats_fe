@@ -7,8 +7,11 @@
       <v-card-text>
         <Label text> Are you sure you want to remove this data?</Label>
         <br />
-        <Label header>Uid : "{{ accidentData.id }}" </Label>
-        <Label header>Mac : "{{ accidentData.mac }}" </Label>
+        <Label header>ID : "{{ accidentData.id }}" </Label>
+        <Label header>PlateNumber : "{{ accidentData.plateNumber }}" </Label>
+        <Label header
+          >GpsTime : "{{ toStringDatetime(accidentData.gpsTime) }}"
+        </Label>
       </v-card-text>
       <v-card-actions>
         <v-row dense class="py-4 px-4">
@@ -30,6 +33,8 @@ import Button from "@/components/common/Button.vue";
 import Label from "@/components/common/Label.vue";
 import Dialog from "@/components/common/Dialog.vue";
 import Card from "@/components/common/Card.vue";
+
+import { Timestamp } from "firebase/firestore";
 
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
@@ -63,6 +68,11 @@ const submitHandler = async () => {
 
 const closeHandler = () => {
   dialog.value = false;
+};
+
+const toStringDatetime = (date) => {
+  if (date instanceof Timestamp) return date.toDate().toLocaleString();
+  else return date.toLocaleString();
 };
 </script>
 

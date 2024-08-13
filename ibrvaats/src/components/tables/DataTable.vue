@@ -51,8 +51,19 @@
     </template>
 
     <template v-slot:item.roles="{ item, index }">
-      <Chip class="primary mr-1" v-for="(role, key) in item.roles" :key="key">
+      <Chip
+        class="primary mr-1"
+        v-for="(role, key) in item.roles"
+        :key="key"
+        @click="emit('changeRole', item, index)"
+      >
         <Label caption>{{ role }}</Label>
+      </Chip>
+    </template>
+
+    <template v-slot:item.status="{ item, index }">
+      <Chip class="primary mr-1" @click="emit('changeStatus', item, index)">
+        <Label caption>{{ item.status }}</Label>
       </Chip>
     </template>
 
@@ -81,6 +92,12 @@
       </Label>
     </template>
 
+    <template v-slot:item.age="{ item, index }">
+      <Label text class="mt-2" @click="">
+        {{ toStringAge(getAge(item.birthDate)) }}
+      </Label>
+    </template>
+
     <template v-slot:item.date="{ item, index }">
       <Button variant="text">
         <v-icon class="mr-2">mdi-watch</v-icon>
@@ -88,13 +105,14 @@
       </Button>
     </template>
 
-    <template v-slot:item.age="{ item, index }">
-      <Label text class="mt-2" @click="">
-        {{ toStringAge(getAge(item.birthDate)) }}
-      </Label>
+    <!-- Gps -->
+    <template v-slot:item.plateNumber="{ item, index }">
+      <Button variant="text" @click="emit('showVehicle', item)">
+        <v-icon class="mr-2">mdi-car</v-icon>
+        <Label caption> {{ item.plateNumber }}</Label>
+      </Button>
     </template>
 
-    <!-- Gps -->
     <template v-slot:item.coordinates="{ item, index }">
       <Button
         @click="gotoLocation(item.latitude, item.longitude)"
@@ -103,6 +121,13 @@
         <v-icon class="mr-2">mdi-map-marker</v-icon>
 
         <Label caption> {{ item.latitude }}, {{ item.longitude }} </Label>
+      </Button>
+    </template>
+
+    <template v-slot:item.gpsTime="{ item, index }">
+      <Button variant="text">
+        <v-icon class="mr-2">mdi-watch</v-icon>
+        <Label caption> {{ toStringDatetime(item.gpsTime) }}</Label>
       </Button>
     </template>
 
@@ -134,6 +159,17 @@
       </Button>
     </template>
 
+    <template v-slot:item.orientation="{ item, index }">
+      {{ getOrientation(item.accelX, item.accelY, item.accelZ) }}
+    </template>
+
+    <template v-slot:item.collision="{ item, index }">
+      <v-row>
+        {{ item.front ? "FRONT" : "" }}
+        {{ item.rear ? "REAR" : "" }}
+      </v-row>
+    </template>
+
     <template v-slot:item.speed="{ item, index }">
       <Button variant="text"> {{ roundOff(item.speed, 1) }} kph </Button>
     </template>
@@ -141,7 +177,7 @@
 </template>
 
 <script setup>
-import { VDataTable } from "vuetify/labs/VDataTable";
+// import { VDataTable } from "vuetify/labs/VDataTable";
 
 import { useDisplay } from "vuetify";
 const { xs, sm, md, lg, xl } = useDisplay();
@@ -157,6 +193,8 @@ import { Timestamp } from "firebase/firestore";
 
 import { degreeToCompass } from "@/utils/conversion";
 
+import { USER_ROLES } from "@/constants";
+
 const toStringDatetime = (date) => {
   if (date instanceof Timestamp) return date.toDate().toLocaleString();
   else return date.toLocaleString();
@@ -169,6 +207,9 @@ const emit = defineEmits([
   "add",
   "refresh",
   "more",
+  "changeRole",
+  "changeStatus",
+  "showVehicle",
 ]);
 const props = defineProps({
   withView: Boolean,
@@ -187,6 +228,61 @@ const roundOff = (value, places) => {
 const gotoLocation = (latitude, longitude) => {
   const link = `https://www.google.com/maps/place/${latitude},${longitude}`;
   window.open(link);
+};
+
+const getOrientation = (accelX, accelY, accelZ) => {
+  let orientation = "TOP";
+  let top =
+    accelX > -2.0 &&
+    accelX < 2.0 &&
+    accelY > -2.0 &&
+    accelY < 2.0 &&
+    accelZ > 8.0 &&
+    accelZ < 12.0;
+  let bottom =
+    accelX > -3.0 &&
+    accelX < 3.0 &&
+    accelY > -3.0 &&
+    accelY < 3.0 &&
+    accelZ < -6.0 &&
+    accelZ > -12.0;
+  let left =
+    accelX > -3.0 &&
+    accelX < 3.0 &&
+    accelY > 6.0 &&
+    accelY < 12.0 &&
+    accelZ > -3.0 &&
+    accelZ < 3.0;
+  let right =
+    accelX > -3.0 &&
+    accelX < 3.0 &&
+    accelY < -6.0 &&
+    accelY > -12.0 &&
+    accelZ > -3.0 &&
+    accelZ < 3.0;
+  let front =
+    accelX > 6.0 &&
+    accelX < 12.0 &&
+    accelY > -3.0 &&
+    accelY < 3.0 &&
+    accelZ > -3.0 &&
+    accelZ < 3.0;
+  let rear =
+    accelX < -6.0 &&
+    accelX > -12.0 &&
+    accelY > -23.0 &&
+    accelY < 3.0 &&
+    accelZ > -3.0 &&
+    accelZ < 3.0;
+
+  if (top) orientation = "TOP";
+  if (bottom) orientation = "BOTTOM";
+  if (left) orientation = "LEFT";
+  if (right) orientation = "RIGHT";
+  if (front) orientation = "FRONT";
+  if (rear) orientation = "REAR";
+
+  return orientation;
 };
 </script>
 

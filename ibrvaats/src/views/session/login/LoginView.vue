@@ -72,6 +72,8 @@ import validation from "@/utils/validation";
 import { signIn, signOut } from "@/api/session";
 import { getDescription } from "@/plugins/firebase/error-codes";
 
+import { Statuses } from "@/constants";
+
 const email = ref();
 const password = ref();
 const form = ref();
@@ -100,7 +102,7 @@ const onSubmitHandler = async (event) => {
     start();
     const result = await signIn(email.value, password.value);
 
-    const { emailVerified, approved } = result.user;
+    const { emailVerified, approved, status } = result.user;
 
     if (!emailVerified) {
       await signOut();
@@ -108,11 +110,11 @@ const onSubmitHandler = async (event) => {
       return;
     }
 
-    // if (!approved) {
-    //   await signOut();
-    //   show("error", "Your account must be approved by ADMIN first!");
-    //   return;
-    // }
+    if (status === Statuses.DISABLED) {
+      await signOut();
+      show("error", "Your account is DISABLED contact ADMIN first!");
+      return;
+    }
 
     await router.push({ name: "UserDashboard" });
   } catch ({ code }) {

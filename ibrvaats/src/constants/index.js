@@ -59,7 +59,7 @@ export const USER = Object.freeze({
   policeStation: null,
   medicalStation: null,
 
-  status: Statuses.ENABLED,
+  status: Statuses.DISABLED,
   profile: cloneDeep(Profile),
 });
 

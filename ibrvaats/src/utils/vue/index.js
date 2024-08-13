@@ -17,6 +17,14 @@ export const toStringDate = (date) => {
   return dayjs(date).format("MMM DD, YYYY");
 };
 
+export const toStringTimeFull = (date) => {
+  return dayjs(date).format("HH:mm:ss MMM DD, YYYY");
+};
+
+export const toDate = (date) => {
+  return dayjs(date).toDate();
+};
+
 export const getAge = (date) => {
   const now = dayjs(new Date());
   const dt = dayjs(date);
