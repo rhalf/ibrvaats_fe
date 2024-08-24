@@ -49,6 +49,17 @@
   </v-row>
 
   <v-row dense class="mt-2">
+    <v-col cols="12" md="">
+      <Label class="text-primary"> Driver's Address </Label>
+      <TextField
+        v-model="vehicle.driverAddress"
+        placeholder="Address"
+        :disabled="disabled"
+      />
+    </v-col>
+  </v-row>
+
+  <v-row dense class="mt-2">
     <v-col cols="12" md="6">
       <Label class="text-primary"> Status </Label>
       <StatusType
@@ -65,6 +76,33 @@
         v-model="vehicle.applicationDate"
         placeholder="Date of Application"
         :disabled="disabled || !isAllowed('applicationDate')"
+      />
+    </v-col>
+
+    <v-row dense class="mt-4">
+      <v-col>
+        <Label class="text-primary" bold>Incase of Emergency </Label>
+      </v-col>
+    </v-row>
+  </v-row>
+
+  <v-row dense class="mt-2">
+    <v-col cols="12" md="6">
+      <Label class="text-primary"> Contact Name </Label>
+      <TextField
+        class="mt-2"
+        v-model="vehicle.contactName"
+        placeholder="Contact Name"
+        :disabled="disabled"
+      />
+    </v-col>
+    <v-col cols="12" md="6">
+      <Label class="text-primary"> Contact Number </Label>
+      <TextField
+        class="mt-2"
+        v-model="vehicle.contactNumber"
+        placeholder="Contact Number"
+        :disabled="disabled"
       />
     </v-col>
   </v-row>

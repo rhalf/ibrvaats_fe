@@ -80,6 +80,7 @@ const submitHandler = async () => {
     emit("done");
     show("success", "Updated an vehicle!");
     dialog.value = false;
+    disabled.value = true;
   } catch ({ message }) {
     show("error", message);
   } finally {

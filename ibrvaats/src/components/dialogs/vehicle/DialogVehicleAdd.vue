@@ -12,7 +12,8 @@
             'brand',
             'model',
             'driverName',
-            'mobileNumber',
+            'driverMobile',
+            'driverAddress',
             'status',
             'applicationDate',
           ]"
