@@ -2,12 +2,19 @@
   <Dialog v-model="dialog" :width="640">
     <Card>
       <v-card-title class="bg-primary pa-4">
-        <Label header> Remove Police Station</Label>
+        <Label header> Change Rescue Status </Label>
       </v-card-title>
       <v-card-text>
-        <Label text> Are you sure you want to remove this item?</Label>
+        <Label text> Are you sure you want to change rescue status?</Label>
         <br />
-        <Label header>Name : "{{ policeStation.name }}" </Label>
+        <!-- <Label header>ID : "{{ accidentData.id }}" </Label> -->
+        <Label header>PlateNumber : "{{ accidentData.plateNumber }}" </Label>
+        <Label header>
+          GpsTime : "{{ toStringDatetime(accidentData.gpsTime) }}"
+        </Label>
+        <Label header>
+          Status : "{{ accidentData.rescued ? "Rescued" : "Not Yet Rescued" }}"
+        </Label>
       </v-card-text>
       <v-card-actions>
         <v-row dense class="py-4 px-4">
@@ -30,27 +37,32 @@ import Label from "@/components/common/Label.vue";
 import Dialog from "@/components/common/Dialog.vue";
 import Card from "@/components/common/Card.vue";
 
+import { Timestamp } from "firebase/firestore";
+
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
 
-import { remove } from "@/api/police-stations";
+import { update } from "@/api/police-stations/datas";
 
 import { useModel, syncProp } from "@/utils/vue";
 
 import { ref, computed, toRefs } from "vue";
-const props = defineProps({ modelValue: Boolean, policeStation: Object });
+const props = defineProps({ modelValue: Boolean, accidentData: Object });
 const propRef = toRefs(props);
-const emit = defineEmits(["update:modelValue", "update:policeStation", "done"]);
+const emit = defineEmits(["update:modelValue", "update:accidentData", "done"]);
 
 const isLoading = ref(false);
 const dialog = computed(useModel(propRef, emit, "modelValue"));
-const policeStation = computed(syncProp(propRef, emit, "policeStation"));
+const accidentData = computed(syncProp(propRef, emit, "accidentData"));
 
 const submitHandler = async () => {
   try {
     isLoading.value = true;
-    const result = await remove(policeStation.value);
-    show("success", "Removed an item!");
+
+    accidentData.value.rescued = !accidentData.value.rescued;
+
+    const result = await update(accidentData.value);
+    show("success", "Rescued status has been changed!");
     emit("done");
     dialog.value = false;
   } catch ({ message }) {
@@ -62,6 +74,11 @@ const submitHandler = async () => {
 
 const closeHandler = () => {
   dialog.value = false;
+};
+
+const toStringDatetime = (date) => {
+  if (date instanceof Timestamp) return date.toDate().toLocaleString();
+  else return date.toLocaleString();
 };
 </script>
 

@@ -78,7 +78,7 @@ const submitHandler = async () => {
     isLoading.value = true;
     const docRef = await update(vehicle.value);
     emit("done");
-    show("success", "Updated an vehicle!");
+    show("success", "Vehicle updated!");
     dialog.value = false;
     disabled.value = true;
   } catch ({ message }) {

@@ -131,12 +131,12 @@
       </Button>
     </template>
 
-    <template v-slot:item.satellite="{ item, index }">
+    <!-- <template v-slot:item.satellite="{ item, index }">
       <Button variant="text">
         <v-icon class="mr-2">mdi-satellite-variant</v-icon>
         {{ item.satellite }}
       </Button>
-    </template>
+    </template> -->
 
     <template v-slot:item.gpsFixed="{ item, index }">
       <Button variant="text">
@@ -167,6 +167,15 @@
       <v-row>
         {{ item.front ? "FRONT" : "" }}
         {{ item.rear ? "REAR" : "" }}
+      </v-row>
+    </template>
+
+    <template v-slot:item.rescued="{ item, index }">
+      <v-row>
+        <Button variant="text" @click="emit('changeRescued', item, index)">
+          <v-icon v-if="item.rescued" color="green">mdi-check</v-icon>
+          <v-icon v-else color="red">mdi-close</v-icon>
+        </Button>
       </v-row>
     </template>
 
@@ -210,6 +219,7 @@ const emit = defineEmits([
   "changeRole",
   "changeStatus",
   "showVehicle",
+  "changeRescued",
 ]);
 const props = defineProps({
   withView: Boolean,

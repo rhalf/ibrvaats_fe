@@ -50,13 +50,13 @@ export const headers = [
   //   key: "longitude",
   //   width: "150",
   // },
-  {
-    title: "Satellites",
-    align: "start",
-    sortable: false,
-    key: "satellite",
-    width: "50",
-  },
+  // {
+  //   title: "Satellites",
+  //   align: "start",
+  //   sortable: false,
+  //   key: "satellite",
+  //   width: "50",
+  // },
   // {
   //   title: "GpsFixed",
   //   align: "start",
@@ -71,13 +71,13 @@ export const headers = [
   //   key: "shock",
   //   width: "50",
   // },
-  {
-    title: "Course",
-    align: "start",
-    sortable: false,
-    key: "course",
-    width: "50",
-  },
+  // {
+  //   title: "Course",
+  //   align: "start",
+  //   sortable: false,
+  //   key: "course",
+  //   width: "50",
+  // },
   {
     title: "Speed",
     align: "start",
@@ -98,5 +98,13 @@ export const headers = [
     sortable: false,
     key: "collision",
     width: "100",
+  },
+
+  {
+    title: "Rescued",
+    align: "start",
+    sortable: false,
+    key: "rescued",
+    width: "50",
   },
 ];

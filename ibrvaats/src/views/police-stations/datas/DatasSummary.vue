@@ -31,6 +31,7 @@
             @view="viewHandler"
             @more="moreHandler"
             @showVehicle="showVehicleHandler"
+            @changeRescued="onChangeRescued"
             :items-per-page="0"
           />
         </v-col>
@@ -47,6 +48,12 @@
       v-model:accident-data="accidentData"
       @done="loadItems"
     />
+
+    <DialogChangeRescued
+      v-model="dialogChangeRescued"
+      v-model:accident-data="accidentData"
+      @done="loadItems"
+    />
   </v-container>
 </template>
 
@@ -59,7 +66,8 @@ import DataTable from "@/components/tables/DataTable.vue";
 import { headers } from "./data";
 
 import DialogVehicleView from "@/components/dialogs/vehicle/DialogVehicleView.vue";
-import DialogAccidentDataRemove from "@/components/dialogs/accident-data/DialogAccidentDataRemove.vue";
+import DialogAccidentDataRemove from "@/components/dialogs/accident-data/DialogChangeRescued.vue";
+import DialogChangeRescued from "@/components/dialogs/accident-data/DialogChangeRescued.vue";
 
 import { useSnackbarStore } from "@/store/snackbar";
 const { show } = useSnackbarStore();
@@ -74,6 +82,7 @@ import { ref, onMounted } from "vue";
 
 const dialogAccidentDataRemove = ref(false);
 const dialogVehicleView = ref(false);
+const dialogChangeRescued = ref(false);
 
 const isLoading = ref(false);
 const accidentDatas = ref();
@@ -86,11 +95,6 @@ const params = ref({
   orderDirection: "desc",
   limitNumber: 10,
 });
-
-// const updateHandler = (item) => {
-//   unit.value = item;
-//   dialogUnitView.value = true;
-// };
 
 const removeHandler = async (item) => {
   accidentData.value = item;
@@ -145,5 +149,10 @@ const showVehicleHandler = async ({ plateNumber }) => {
     isLoading.value = false;
   }
   dialogVehicleView.value = true;
+};
+
+const onChangeRescued = (item, index) => {
+  accidentData.value = item;
+  dialogChangeRescued.value = true;
 };
 </script>

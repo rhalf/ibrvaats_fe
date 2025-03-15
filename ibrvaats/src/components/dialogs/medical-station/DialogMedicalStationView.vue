@@ -61,7 +61,7 @@ const submitHandler = async () => {
     try {
       isLoading.value = true;
       const docRef = await update(medicalStation.value);
-      show("success", "Updated an medicalStation!");
+      show("success", "MedicalStation Updated!");
       dialog.value = false;
       emit("done");
       disabled.value = true;

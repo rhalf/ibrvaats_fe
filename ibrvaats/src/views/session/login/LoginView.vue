@@ -100,6 +100,7 @@ const onSubmitHandler = async (event) => {
   if (!form.value) return;
   try {
     start();
+
     const result = await signIn(email.value, password.value);
 
     const { emailVerified, approved, status } = result.user;
@@ -118,6 +119,7 @@ const onSubmitHandler = async (event) => {
 
     await router.push({ name: "UserDashboard" });
   } catch ({ code }) {
+    console.log(code);
     const description = await getDescription(code);
     show("error", description);
   } finally {

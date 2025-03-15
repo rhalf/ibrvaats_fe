@@ -81,7 +81,7 @@
 
     <v-row dense class="mt-4">
       <v-col>
-        <Label class="text-primary" bold>Incase of Emergency </Label>
+        <Label class="text-primary" bold>In case of Emergency </Label>
       </v-col>
     </v-row>
   </v-row>
