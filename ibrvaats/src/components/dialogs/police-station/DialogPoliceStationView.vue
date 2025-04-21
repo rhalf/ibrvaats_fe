@@ -57,7 +57,7 @@ const submitHandler = async () => {
     try {
       isLoading.value = true;
       const docRef = await update(policeStation.value);
-      show("success", "Updated an policeStation!");
+      show("success", "PoliceStation updated!");
       dialog.value = false;
       emit("done");
       disabled.value = true;

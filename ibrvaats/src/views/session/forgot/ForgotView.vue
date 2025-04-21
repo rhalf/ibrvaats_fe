@@ -88,7 +88,7 @@ const onSubmitHandler = async (event) => {
   try {
     start();
     const result = await passwordResetEmail(email.value);
-    show("success", `Password recovery has been sent to this email: ${result}`);
+    show("success", `Password recovery has been sent to your email!`);
   } catch ({ message }) {
     show("error", message);
   } finally {

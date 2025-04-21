@@ -58,7 +58,7 @@ const submitHandler = async () => {
     isLoading.value = true;
     await updatePassword(password.value);
     emit("changed");
-    show("success", "Changed a password!");
+    show("success", "Password changed!");
     password.value = null;
     closeHandler();
   } catch ({ code }) {

@@ -55,7 +55,7 @@ const submitHandler = async () => {
     isLoading.value = true;
     const docRef = await update(user.value);
     emit("done");
-    show("success", "Updated a user!");
+    show("success", "Profile updated!");
     dialog.value = false;
   } catch ({ message }) {
     show("error", message);

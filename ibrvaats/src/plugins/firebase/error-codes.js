@@ -254,6 +254,10 @@ const errors = [
     code: "auth/requires-recent-login",
     description: "You need to relogin first!",
   },
+  {
+    code: "auth/invalid-login-credentials",
+    description: "Please contact the administrator!",
+  },
 ];
 
 export const getDescription = async (code) => {

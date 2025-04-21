@@ -7,7 +7,7 @@
       <v-card-text>
         <Label text> Are you sure you want to remove this item?</Label>
         <br />
-        <Label header>Name : "{{ medicalStation.name }}"" </Label>
+        <Label header>Name : "{{ medicalStation.name }}" </Label>
       </v-card-text>
       <v-card-actions>
         <v-row dense class="py-4 px-4">

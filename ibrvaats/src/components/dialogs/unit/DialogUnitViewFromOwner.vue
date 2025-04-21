@@ -70,7 +70,7 @@ const submitHandler = async () => {
     isLoading.value = true;
     const docRef = await update(unit.value);
     emit("done");
-    show("success", "Updated an unit!");
+    show("success", "Unit updated!");
     dialog.value = false;
     disabled.value = true;
   } catch ({ message }) {

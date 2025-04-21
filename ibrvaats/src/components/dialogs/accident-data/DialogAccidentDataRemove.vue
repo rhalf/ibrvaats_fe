@@ -7,7 +7,7 @@
       <v-card-text>
         <Label text> Are you sure you want to remove this data?</Label>
         <br />
-        <Label header>ID : "{{ accidentData.id }}" </Label>
+        <!-- <Label header>ID : "{{ accidentData.id }}" </Label> -->
         <Label header>PlateNumber : "{{ accidentData.plateNumber }}" </Label>
         <Label header
           >GpsTime : "{{ toStringDatetime(accidentData.gpsTime) }}"
