@@ -66,7 +66,7 @@ import DataTable from "@/components/tables/DataTable.vue";
 import { headers } from "./data";
 
 import DialogVehicleView from "@/components/dialogs/vehicle/DialogVehicleView.vue";
-import DialogAccidentDataRemove from "@/components/dialogs/accident-data/DialogChangeRescued.vue";
+import DialogAccidentDataRemove from "@/components/dialogs/accident-data/DialogAccidentDataRemove.vue";
 import DialogChangeRescued from "@/components/dialogs/accident-data/DialogChangeRescued.vue";
 
 import { useSnackbarStore } from "@/store/snackbar";
